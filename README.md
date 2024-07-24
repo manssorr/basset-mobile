@@ -1,5 +1,5 @@
 <center>
- <img alt="Basset logo" width=300 src="https://raw.githubusercontent.com/mohammadmansour200/basset-mobile/main/public/appIcon.png">
+ <img alt="Basset logo" width=300 src="https://raw.githubusercontent.com/mohammadmansour200/basset-mobile/master/src/assets/appIcon.png">
 </center>
 
 Basset (translates to simple in Arabic) is a free open source FFmpeg GUI utility.
@@ -10,7 +10,10 @@ its goals are:
 Simplicity and ease ✨ - Speed ⚡ - Privacy 🔏
 </center>
 
-<hr><a href="#demo-">Demo</a> &bull; <a href="#features-">Features</a> &bull; <a href="#download-links-">Download Links</a> &bull;  <a href="#contributing-">Contributing</a> &bull; <a href="#localization-">Localization</a> &bull; <a href="#contact-">Contact</a> &bull; <a href="#license-">License</a></p>
+This is Basset's Mobile version; after seeing how impactful Basset desktop was, and how many people benefited from it, I thought a Mobile Basset version (built using React native/Expo) was very important.. so here it is..
+Keep in mind I wasn't able to test Basset across different screen resolution and different Android Versions; so Basset is definitely prone to bugs.
+
+<hr><a href="#features-">Features</a> &bull; <a href="#download-links-">Download Links</a> &bull;  <a href="#contributing-">Contributing</a> &bull; <a href="#localization-">Localization</a> &bull; <a href="#contact-">Contact</a> &bull; <a href="#license-">License</a></p>
 <hr>
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohammadmansour200/basset-mobile)
