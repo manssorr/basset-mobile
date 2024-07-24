@@ -64,7 +64,11 @@ function OnBoardDialog() {
 					>
 						<Pressable
 							android_ripple={{ color: colors.text, borderless: true }}
-							style={{ alignSelf: "flex-end" }}
+							style={{
+								alignSelf: "flex-end",
+								marginHorizontal: 5,
+								marginTop: 5,
+							}}
 							onPress={hideModal}
 						>
 							<CloseIcon />

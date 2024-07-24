@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import { useTheme } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	Modal,
@@ -20,14 +20,10 @@ function SettingsModal() {
 	const { isVisible, setIsVisible, theme, setTheme } = useSettingsModalStore();
 	const colors = useTheme().colors;
 	const { t, i18n } = useTranslation();
-	const [language, setLanguage] = useState(
-		i18n.language.split("-")[0].toString(),
-	);
 
 	useEffect(() => {
 		async function setLanguageOnMount() {
 			const language = await AsyncStorage.getItem("i18nextLng");
-			setLanguage(language || "en");
 			i18n.changeLanguage(language || "en");
 		}
 		setLanguageOnMount();
@@ -57,7 +53,7 @@ function SettingsModal() {
 				>
 					<Pressable
 						android_ripple={{ color: colors.text, borderless: true }}
-						style={{ alignSelf: "flex-end" }}
+						style={{ alignSelf: "flex-end", marginHorizontal: 5, marginTop: 5 }}
 						onPress={() => setIsVisible(false)}
 					>
 						<CloseIcon />
@@ -91,10 +87,11 @@ function SettingsModal() {
 							<Picker
 								style={{ color: colors.text }}
 								dropdownIconColor={colors.text}
-								selectedValue={language}
+								selectedValue={i18n.language.split("-")[0].toString()}
 								onValueChange={async (value) => {
 									await AsyncStorage.setItem("i18nextLng", value);
-									setLanguage(value);
+									i18n.changeLanguage(value);
+
 									ToastAndroid.show(
 										t("header.reloadToast"),
 										ToastAndroid.SHORT,

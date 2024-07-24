@@ -12,15 +12,14 @@ import LightTheme from "./src/themes/LightTheme";
 import "./i18n";
 import OnBoardDialog from "./src/components/OnBoardModal";
 
-I18nManager.allowRTL(false);
-I18nManager.forceRTL(false);
-
 const Stack = createNativeStackNavigator();
 
 function App() {
 	const { colors } = useTheme();
 	const { isVisible, theme } = useSettingsModalStore();
 	const defaultColorScheme = useColorScheme();
+	I18nManager.allowRTL(false);
+	I18nManager.forceRTL(false);
 
 	const systemColorSheme =
 		defaultColorScheme === "dark" ? DarkTheme : LightTheme;
