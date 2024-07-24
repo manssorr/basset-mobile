@@ -1,0 +1,51 @@
+{
+	"inputErr": "Error opening input file",
+	"somethingWentWrongErr": "Something went wrong, try a different file",
+	"streamErr": "File is corrupted",
+	"successMsg": "Done :)",
+	"onboard": {
+		"header": "As-salamu alaykum...\nBasset is a free open source utility, its goals are:\nSimplicity and ease [Basset means simple in Arabic :)] ✨\nSpeed ⚡️\nPrivacy 🔏",
+		"features": "Basset lets you trim, convert, compress, downgrade quality of your Audio/Video file. moreover you can convert Audio files to Video files using a still Image you choose",
+		"steps": "steps: choose your Video/Audio file --> choose your wanted operation"
+	},
+	"header": {
+		"settingsLabel": "الإعدادات",
+		"themeLabel": "Theme",
+		"darkMode": "Dark mode",
+		"lightMode": "Light mode",
+		"system": "System default",
+		"languageLabel": "Language"
+	},
+	"uploadPage": {
+		"uploadFileLabel": "Choose a file"
+	},
+	"tabs": {
+		"trimTab": "Trim",
+		"compressTab": "Compress",
+		"playBtn": "Play/Pause",
+		"compressLabel": "Compress rate",
+		"convertToAudioTab": "Video to Audio",
+		"convertTab": "Convert",
+		"qualityTab": "Quality",
+		"convertToVideoTab": "Audio to Video",
+		"uploadImageBtn": "Upload file",
+		"cutOutputDuration": "Output file duration"
+	},
+	"formatSelect": {
+		"label": "Choose a format",
+		"recommended": "(recommended)"
+	},
+	"audioQualitySelect": {
+		"selectLabel": "Select quality",
+		"high": "High quality",
+		"medium": "Medium quality",
+		"low": "Low quality"
+	},
+	"executeBtn": {
+		"cutBtn": "Cut",
+		"convertBtn": "Convert",
+		"startBtn": "Start",
+		"shareBtn": "Share file",
+		"cancelBtn": "Cancel"
+	}
+}
