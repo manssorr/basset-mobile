@@ -14,7 +14,8 @@
 		"darkMode": "داكن",
 		"lightMode": "فاتح",
 		"system": "النظام",
-		"languageLabel": "اللغة"
+		"languageLabel": "اللغة",
+		"reloadToast": "أعد تشغيل بسيط لتغيير اللغة"
 	},
 	"uploadPage": {
 		"uploadFileLabel": "اختر ملفًا"

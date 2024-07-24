@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import { useTheme } from "@react-navigation/native";
-import Expo from "expo";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,6 +8,7 @@ import {
 	Pressable,
 	StyleSheet,
 	Text,
+	ToastAndroid,
 	TouchableOpacity,
 	View,
 } from "react-native";
@@ -95,7 +95,10 @@ function SettingsModal() {
 								onValueChange={async (value) => {
 									await AsyncStorage.setItem("i18nextLng", value);
 									setLanguage(value);
-									await Expo.reloadAppAsync("For language changing");
+									ToastAndroid.show(
+										t("header.reloadToast"),
+										ToastAndroid.SHORT,
+									);
 								}}
 							>
 								<Picker.Item value="ar" label="العربية" />

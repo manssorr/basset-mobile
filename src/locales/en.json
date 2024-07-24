@@ -14,7 +14,8 @@
 		"darkMode": "Dark mode",
 		"lightMode": "Light mode",
 		"system": "System default",
-		"languageLabel": "Language"
+		"languageLabel": "Language",
+		"reloadToast": "Reload app to change language"
 	},
 	"uploadPage": {
 		"uploadFileLabel": "Choose a file"

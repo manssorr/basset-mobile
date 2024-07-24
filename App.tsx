@@ -1,7 +1,7 @@
 import { NavigationContainer, useTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "react-native";
+import { I18nManager, useColorScheme } from "react-native";
 import SettingBtn from "./src/components/SettingBtn";
 import SettingsModal from "./src/components/SettingsModal";
 import FileUploadScreen from "./src/screens/FileUploadScreen";
@@ -11,6 +11,9 @@ import DarkTheme from "./src/themes/DarkTheme";
 import LightTheme from "./src/themes/LightTheme";
 import "./i18n";
 import OnBoardDialog from "./src/components/OnBoardModal";
+
+I18nManager.allowRTL(false);
+I18nManager.forceRTL(false);
 
 const Stack = createNativeStackNavigator();
 
