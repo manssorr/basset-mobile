@@ -14,7 +14,7 @@ Simplicity and ease ✨ - Speed ⚡ - Privacy 🔏
 `This is Basset's Mobile version; after seeing how impactful Basset desktop was, and how many people benefited from it, I thought a Mobile Basset version (built using React native/Expo) was very important.. so here it is..
 Keep in mind I wasn't able to test Basset across different screen resolutions and different Android Versions; so Basset is definitely prone to bugs.`
 
-<hr><a href="#features-">Features</a> &bull; <a href="#download-links-">Download Links</a> &bull;  <a href="#contributing-">Contributing</a> &bull; <a href="#localization-">Localization</a> &bull; <a href="#contact-">Contact</a> &bull; <a href="#license-">License</a></p>
+<hr><a href="#demo-">Demo</a> &bull; <a href="#features-">Features</a> &bull; <a href="#download-links-">Download Links</a> &bull;  <a href="#contributing-">Contributing</a> &bull; <a href="#localization-">Localization</a> &bull; <a href="#contact-">Contact</a> &bull; <a href="#license-">License</a></p>
 <hr>
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohammadmansour200/basset-mobile)
@@ -22,6 +22,11 @@ Keep in mind I wasn't able to test Basset across different screen resolutions an
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/mohammadmansour200/basset-mobile)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+## Demo 📷
+
+<img src="https://i.imgur.com/TrGt8m5.jpeg" width=300> <img src="https://i.imgur.com/sRj6KkS.jpeg" width=300>
+<img src="https://i.imgur.com/EZoFGxp.jpeg" width=300>
+<img src="https://i.imgur.com/pZooqKo.jpeg" width=300>
 
 ## Features 🌟
 
