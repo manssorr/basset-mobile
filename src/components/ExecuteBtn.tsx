@@ -7,9 +7,12 @@ import { FFmpegKit, ReturnCode } from "ffmpeg-kit-react-native";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+	PermissionsAndroid,
+	Platform,
 	Pressable,
 	StyleSheet,
 	Text,
+	ToastAndroid,
 	View,
 	useWindowDimensions,
 } from "react-native";
@@ -52,6 +55,25 @@ function ExecuteBtn({
 		setProgress(0);
 		setErrInfo("");
 
+		if (Number(Platform.Version) <= 30) {
+			const permission = await PermissionsAndroid.request(
+				"android.permission.WRITE_EXTERNAL_STORAGE",
+				{
+					title: t("permission.title"),
+					message: t("permission.message"),
+					buttonPositive: t("permission.buttonPositive"),
+					buttonNegative: t("permission.buttonNegative"),
+				},
+			);
+
+			if (
+				permission === PermissionsAndroid.RESULTS.DENIED ||
+				permission === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+			) {
+				ToastAndroid.show(t("permission.reject"), ToastAndroid.SHORT);
+			}
+		}
+
 		const date = new Date();
 		const outputFileDate = `${date.getFullYear()}_${Math.random().toString().slice(2, 5)}`;
 
@@ -59,17 +81,16 @@ function ExecuteBtn({
 			outputFormat === undefined ? getFileExt(inputFile.uri) : outputFormat;
 
 		const outputFilePath = `${FileSystem.cacheDirectory}output/${getFileName(inputFile.uri)}_${outputFileDate}.${outputFileFormat}`;
-
 		await FFmpegKit.executeAsync(
 			`-y ${command} ${outputFilePath}`,
 			async (session) => {
 				const returnCode = await session.getReturnCode();
 
 				if (ReturnCode.isSuccess(returnCode)) {
-					await MediaLibrary.saveToLibraryAsync(outputFilePath);
 					setShareFilePath(outputFilePath);
 					setCmdRunning(false);
 					setCmdStatus("success");
+					await MediaLibrary.saveToLibraryAsync(outputFilePath);
 					await Haptics.notificationAsync();
 				} else {
 					setCmdStatus("error");

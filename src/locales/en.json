@@ -48,5 +48,12 @@
 		"startBtn": "Start",
 		"shareBtn": "Share file",
 		"cancelBtn": "Cancel"
+	},
+	"permission": {
+		"title": "Permission for writing file",
+		"message": "To save the file in the Media folder, Basset needs the permission to do so.",
+		"buttonPositive": "Allow",
+		"buttonNegative": "Don't allow",
+		"reject": "File won't get saved, but still you'll be able to share it"
 	}
 }
