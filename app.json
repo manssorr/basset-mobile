@@ -5,7 +5,7 @@
 		"owner": "mohammadmansour",
 		"githubUrl": "https://github.com/mohammadmansour200/basset-mobile",
 		"description": "Utility for video/audio cutting, compressing, converting and quality changing",
-		"version": "0.0.2",
+		"version": "0.0.3",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"userInterfaceStyle": "light",
@@ -30,7 +30,8 @@
 				"android.permission.READ_EXTERNAL_STORAGE",
 				"android.permission.WRITE_EXTERNAL_STORAGE",
 				"android.permission.ACCESS_MEDIA_LOCATION"
-			]
+			],
+			"enableDangerousExperimentalLeanBuilds": true
 		},
 		"plugins": [
 			[

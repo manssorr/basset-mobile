@@ -18,7 +18,7 @@ import Seperator from "./Seperator";
 
 function SettingsModal() {
 	const { isVisible, setIsVisible, theme, setTheme } = useSettingsModalStore();
-	const colors = useTheme().colors;
+	const { colors } = useTheme();
 	const { t, i18n } = useTranslation();
 
 	useEffect(() => {
@@ -48,7 +48,10 @@ function SettingsModal() {
 				<View
 					style={[
 						styles.modalContainer,
-						{ borderColor: colors.border, backgroundColor: colors.background },
+						{
+							borderColor: colors.border,
+							backgroundColor: colors.background,
+						},
 					]}
 				>
 					<Pressable
@@ -59,7 +62,14 @@ function SettingsModal() {
 						<CloseIcon />
 					</Pressable>
 					<View style={{ width: "100%" }}>
-						<Text style={{ marginTop: 10, marginHorizontal: 10, fontSize: 16 }}>
+						<Text
+							style={{
+								marginTop: 10,
+								marginHorizontal: 10,
+								fontSize: 16,
+								color: colors.text,
+							}}
+						>
 							{t("header.themeLabel")}
 						</Text>
 						<View style={[styles.picker, { borderColor: colors.border }]}>
@@ -80,7 +90,14 @@ function SettingsModal() {
 					</View>
 					<Seperator color={colors.border} strokeWidth={0.5} />
 					<View style={{ width: "100%" }}>
-						<Text style={{ marginTop: 5, marginHorizontal: 10, fontSize: 16 }}>
+						<Text
+							style={{
+								marginTop: 5,
+								marginHorizontal: 10,
+								fontSize: 16,
+								color: colors.text,
+							}}
+						>
 							{t("header.languageLabel")}
 						</Text>
 						<View style={[styles.picker, { borderColor: colors.border }]}>

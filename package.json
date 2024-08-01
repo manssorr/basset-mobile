@@ -1,6 +1,6 @@
 {
 	"name": "basset-mobile",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"author": "Mohammad Abdul-Tawab",
 	"description": "Utility for video/audio cutting, compressing, converting and quality changing",
 	"license": "GPL-3.0-only",

@@ -85,7 +85,6 @@ function ExecuteBtn({
 			`-y ${command} ${outputFilePath}`,
 			async (session) => {
 				const returnCode = await session.getReturnCode();
-
 				if (ReturnCode.isSuccess(returnCode)) {
 					setShareFilePath(outputFilePath);
 					setCmdRunning(false);

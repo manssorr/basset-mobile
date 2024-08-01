@@ -74,9 +74,9 @@ function OnBoardDialog() {
 							<CloseIcon />
 						</Pressable>
 						<Image source={logo} alt="Basset logo" />
-						<Text>v{version}</Text>
+						<Text style={{ color: colors.text }}>v{version}</Text>
 						<Seperator color={colors.border} strokeWidth={2} />
-						<Text style={{ fontSize: 15 }}>
+						<Text style={{ fontSize: 15, color: colors.text }}>
 							{t("onboard.header")}
 							{"\n\n"}
 							{t("onboard.features")}

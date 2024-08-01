@@ -158,10 +158,12 @@ function TrimTimeline({
 				onValuesChange={onTimelineValuesChange}
 				min={0}
 				max={100}
-				values={[
-					getPercentage(cutTimestamps[0], AVDuration),
-					getPercentage(cutTimestamps[1], AVDuration),
-				]}
+				values={
+					[
+						getPercentage(cutTimestamps[0], AVDuration),
+						getPercentage(cutTimestamps[1], AVDuration),
+					] || [0, getPercentage(100, AVDuration)]
+				}
 				sliderLength={width - 40}
 				step={0.1}
 				selectedStyle={{

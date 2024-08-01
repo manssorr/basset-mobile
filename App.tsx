@@ -35,9 +35,9 @@ function App() {
 				backgroundColor={isVisible ? "rgba(0, 0, 0, 0.5)" : ""}
 				animated
 			/>
-			<OnBoardDialog />
-			<SettingsModal />
 			<NavigationContainer theme={appTheme}>
+				<SettingsModal />
+				<OnBoardDialog />
 				<Stack.Navigator
 					screenOptions={{
 						title: "",

@@ -31,7 +31,7 @@ export default function AVControls({
 		<View style={styles.controlsContainer}>
 			<View style={styles.upperControlsContainer}>
 				<MultiSlider
-					values={[getPercentage(AVCurrPosition, AVDuration)]}
+					values={[getPercentage(AVCurrPosition, AVDuration) || 0]}
 					max={100}
 					min={0}
 					step={0.01}

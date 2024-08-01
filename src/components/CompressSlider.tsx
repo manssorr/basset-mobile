@@ -57,7 +57,7 @@ function CompressSlider() {
 			</Text>
 			<ExecuteBtn
 				btnTitle={t("executeBtn.startBtn")}
-				command={`-i ${inputFile?.uri} -crf ${compressRate + 25}`}
+				command={`-i ${inputFile?.uri} -pix_fmt yuv420p -crf ${compressRate + 25}`}
 			/>
 		</View>
 	);
