@@ -3,14 +3,20 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import ExecuteBtn from "../components/ExecuteBtn";
+import FileNameInput from "../components/FileNameInput";
 import FormatSelect from "../components/FormatSelect";
 import { useFilePathStore } from "../stores/filePathStore";
 
 function VideoToAudio() {
+	const [fileName, setFileName] = useState("");
 	const [format, setFormat] = useState("mp3");
+
 	const colors = useTheme().colors;
+
 	const { inputFile } = useFilePathStore();
+
 	const { t } = useTranslation();
+
 	return (
 		<View>
 			<Text
@@ -26,7 +32,9 @@ function VideoToAudio() {
 			<View style={[styles.picker, { borderColor: colors.border }]}>
 				<FormatSelect format={format} setFormat={setFormat} isAudio={true} />
 			</View>
+			<FileNameInput setFileName={setFileName} />
 			<ExecuteBtn
+				fileName={fileName}
 				btnTitle={t("executeBtn.convertBtn")}
 				outputFormat={format}
 				command={`-i ${inputFile?.uri}`}

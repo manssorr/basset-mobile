@@ -20,8 +20,7 @@ Please follow these guidelines before sending your pull request and making contr
 - Comment your code when necessary. Follow the [JavaScript Documentation and Comments Standard](https://www.drupal.org/docs/develop/standards/javascript/javascript-api-documentation-and-comment-standards) for functions.
 - Never use "any" type
 - Please test your code. Make sure new features works
-- Please make sure your code does not violate any standards set by our linter. It's up to you to make fixes whenever necessary. You can run `npm run lint` to check locally and `npm run lint-fix` to automatically fix smaller issues.
-- Please don't add other node-modules only when necessary
+- Please make sure your code does not violate any standards set by our linter. It's up to you to make fixes whenever necessary. 
 
 ### Install Dependencies
 

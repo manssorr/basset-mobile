@@ -68,6 +68,31 @@
         <action android:name="androidx.media3.session.MediaSessionService"/>
       </intent-filter>
     </service>
+    <service android:name="com.brentvatne.exoplayer.VideoPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback">
+      <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService"/>
+      </intent-filter>
+    </service>
+    <service android:name="com.brentvatne.exoplayer.VideoPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback">
+      <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService"/>
+      </intent-filter>
+    </service>
+    <service android:name="com.brentvatne.exoplayer.VideoPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback">
+      <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService"/>
+      </intent-filter>
+    </service>
+    <service android:name="com.brentvatne.exoplayer.VideoPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback">
+      <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService"/>
+      </intent-filter>
+    </service>
+    <service android:name="com.brentvatne.exoplayer.VideoPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback">
+      <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService"/>
+      </intent-filter>
+    </service>
     <activity android:name=".MainActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true" android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -78,6 +103,46 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.basset"/>
+        <data android:scheme="basset"/>
+        <data android:scheme="bassetmobile"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <data android:mimeType="text/*"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <data android:mimeType="video/mp4"/>
+        <data android:mimeType="video/webp"/>
+        <data android:mimeType="video/avi"/>
+        <data android:mimeType="video/mov"/>
+        <data android:mimeType="video/mkv"/>
+        <data android:mimeType="video/flv"/>
+        <data android:mimeType="audio/*"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <data android:mimeType="video/mp4"/>
+        <data android:mimeType="video/webp"/>
+        <data android:mimeType="video/avi"/>
+        <data android:mimeType="video/mov"/>
+        <data android:mimeType="video/mkv"/>
+        <data android:mimeType="video/flv"/>
+        <data android:mimeType="audio/*"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <data android:mimeType="video/mp4"/>
+        <data android:mimeType="video/webp"/>
+        <data android:mimeType="video/avi"/>
+        <data android:mimeType="video/mov"/>
+        <data android:mimeType="video/mkv"/>
+        <data android:mimeType="video/flv"/>
+        <data android:mimeType="audio/*"/>
+        <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

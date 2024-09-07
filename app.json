@@ -2,13 +2,14 @@
 	"expo": {
 		"name": "Basset",
 		"slug": "basset-mobile",
+		"scheme": "bassetmobile",
 		"owner": "mohammadmansour",
 		"githubUrl": "https://github.com/mohammadmansour200/basset-mobile",
 		"description": "Utility for video/audio cutting, compressing, converting and quality changing",
-		"version": "0.0.3",
+		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
+		"userInterfaceStyle": "automatic",
 		"splash": {
 			"image": "./assets/splash.png",
 			"resizeMode": "contain",
@@ -57,6 +58,21 @@
 				"expo-media-library",
 				{
 					"isAccessMediaLocationEnabled": true
+				}
+			],
+			[
+				"expo-share-intent",
+				{
+					"disableIOS": true,
+					"androidIntentFilters": [
+						"video/mp4",
+						"video/webp",
+						"video/avi",
+						"video/mov",
+						"video/mkv",
+						"video/flv",
+						"audio/*"
+					]
 				}
 			]
 		],

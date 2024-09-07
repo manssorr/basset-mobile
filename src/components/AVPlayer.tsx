@@ -21,6 +21,8 @@ import formatTimestamp from "../utils/timestampFormatter";
 import unformatTimestamp from "../utils/timestampUnformatter";
 import AVControls from "./AVControls";
 import ExecuteBtn from "./ExecuteBtn";
+import FileNameInput from "./FileNameInput";
+import Seperator from "./Seperator";
 
 function AVPlayer() {
 	const [isPaused, setIsPaused] = useState(true);
@@ -28,6 +30,7 @@ function AVPlayer() {
 	const [cutTimestamps, setCutTimestamps] = useState<[number, number]>([
 		0, 100,
 	]);
+	const [fileName, setFileName] = useState("");
 	const videoRef = useRef<VideoRef>(null);
 	const { t } = useTranslation();
 	const colors = useTheme().colors;
@@ -42,6 +45,7 @@ function AVPlayer() {
 				behavior={Platform.OS === "ios" ? "padding" : "position"}
 			>
 				<Video
+					repeat
 					onProgress={(e) => {
 						setAVCurrPosition(e.currentTime);
 					}}
@@ -68,6 +72,7 @@ function AVPlayer() {
 					</Text>
 				</View>
 				<AVControls
+					setAVCurrPosition={setAVCurrPosition}
 					AVCurrPosition={AVCurrPosition}
 					isPaused={isPaused}
 					setIsPaused={setIsPaused}
@@ -79,9 +84,11 @@ function AVPlayer() {
 					cutTimestamps={cutTimestamps}
 					videoRef={videoRef}
 				/>
+				<FileNameInput setFileName={setFileName} />
 				<ExecuteBtn
+					fileName={fileName}
 					btnTitle={t("executeBtn.cutBtn")}
-					command={`-ss ${formatTimestamp(cutTimestamps[0])} -i ${inputFile?.uri} -c copy -t ${formatTimestamp(cutTimestamps[1])}`}
+					command={`-ss ${formatTimestamp(cutTimestamps[0])} -to ${formatTimestamp(cutTimestamps[1])} -i ${inputFile?.uri} -c copy`}
 				/>
 			</KeyboardAvoidingView>
 		</ScrollView>
@@ -128,32 +135,35 @@ function TrimTimeline({
 	}
 
 	function onStartTimestampInputChange(value: string) {
-		if (value.length <= 2) return;
+		if (value.length <= 3) return;
 		if (!videoRef) return;
 
-		const startCutTimestamp = unformatTimestamp(value);
-
-		if (
-			timestampRegex.test(value) &&
-			typeof startCutTimestamp === "number" &&
-			value
-		) {
-			setCutTimestamps([startCutTimestamp, cutTimestamps[1]]);
-			videoRef?.current?.seek(startCutTimestamp);
+		if (timestampRegex.test(value)) {
+			const startCutTimestamp = unformatTimestamp(value);
+			if (startCutTimestamp) {
+				setCutTimestamps([startCutTimestamp, cutTimestamps[1]]);
+				videoRef?.current?.seek(startCutTimestamp);
+			}
 		}
 	}
 
 	function onEndTimestampInputChange(value: string) {
-		if (value.length <= 2) return;
-		const endCutTimestamp = unformatTimestamp(value);
+		if (value.length <= 3) return;
 
-		if (timestampRegex.test(value) && typeof endCutTimestamp === "number") {
-			setCutTimestamps([cutTimestamps[0], endCutTimestamp]);
+		if (timestampRegex.test(value)) {
+			const endCutTimestamp = unformatTimestamp(value);
+			if (endCutTimestamp)
+				setCutTimestamps([cutTimestamps[0], endCutTimestamp]);
 		}
 	}
 
 	return (
 		<View style={styles.trimTimelineContainer}>
+			<Seperator
+				orientation="horizontal"
+				color={colors.border}
+				strokeWidth={0.5}
+			/>
 			<MultiSlider
 				onValuesChange={onTimelineValuesChange}
 				min={0}

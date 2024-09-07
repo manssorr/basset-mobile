@@ -1,4 +1,4 @@
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import Slider from "@react-native-community/slider";
 import { useTheme } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -13,12 +13,14 @@ interface IAVControlsProps {
 	setIsPaused: React.Dispatch<React.SetStateAction<boolean>>;
 	videoRef: React.RefObject<VideoRef>;
 	AVCurrPosition: number;
+	setAVCurrPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 export default function AVControls({
 	isPaused,
 	setIsPaused,
 	videoRef,
 	AVCurrPosition,
+	setAVCurrPosition,
 }: IAVControlsProps) {
 	const colors = useTheme().colors;
 	const { AVDuration } = useAVStore();
@@ -30,36 +32,22 @@ export default function AVControls({
 	return (
 		<View style={styles.controlsContainer}>
 			<View style={styles.upperControlsContainer}>
-				<MultiSlider
-					values={[getPercentage(AVCurrPosition, AVDuration) || 0]}
-					max={100}
-					min={0}
-					step={0.01}
-					selectedStyle={{
-						backgroundColor: colors.text,
-						borderTopLeftRadius: 50,
-						borderBottomLeftRadius: 50,
-					}}
-					unselectedStyle={{
-						borderTopRightRadius: 50,
-						borderBottomRightRadius: 50,
-						backgroundColor: colors.border,
-					}}
-					markerStyle={{
-						borderColor: colors.text,
-						borderWidth: 3,
-						backgroundColor: colors.background,
-						padding: 8,
-						top: 5,
-					}}
-					trackStyle={{ paddingVertical: 5 }}
-					onValuesChange={(values) => {
-						const percentageToSeconds = (values[0] / 100) * AVDuration;
-
+				<Slider
+					style={{ width: "90%", height: 50 }}
+					minimumValue={0}
+					maximumValue={100}
+					value={getPercentage(AVCurrPosition, AVDuration) ?? 0}
+					onValueChange={(value) => {
+						const percentageToSeconds = (value / 100) * AVDuration;
+						setAVCurrPosition(percentageToSeconds);
 						if (videoRef) {
 							videoRef.current?.seek(percentageToSeconds);
 						}
 					}}
+					step={0.01}
+					minimumTrackTintColor={colors.text}
+					maximumTrackTintColor={colors.border}
+					thumbTintColor={colors.text}
 				/>
 				<Text style={{ color: colors.text }}>
 					{formatTimestamp(AVCurrPosition)}
@@ -126,6 +114,5 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-		gap: 3,
 	},
 });

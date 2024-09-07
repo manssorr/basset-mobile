@@ -5,13 +5,18 @@ import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { G, Path, Svg } from "react-native-svg";
 import ExecuteBtn from "../components/ExecuteBtn";
+import FileNameInput from "../components/FileNameInput";
 import { useFilePathStore } from "../stores/filePathStore";
 import { getFileExt, getFileName } from "../utils/fileUtils";
 
 function AudioToVideo() {
 	const [imageFilePath, setImageFilePath] = useState("");
+	const [fileName, setFileName] = useState("");
+
 	const colors = useTheme().colors;
+
 	const { inputFile } = useFilePathStore();
+
 	const { t } = useTranslation();
 
 	async function onUploadImageBtnClick() {
@@ -47,11 +52,13 @@ function AudioToVideo() {
 					</Text>
 				)}
 			</Pressable>
+			<FileNameInput setFileName={setFileName} />
 			<ExecuteBtn
+				fileName={fileName}
 				btnTitle={t("executeBtn.convertBtn")}
 				disabled={imageFilePath === ""}
 				outputFormat="mp4"
-				command={`-r 1 -loop 1 -i ${imageFilePath} -i ${inputFile?.uri} -acodec copy -r 1 -pix_fmt yuv420p -tune stillimage -shortest`}
+				command={`-r 1 -loop 1 -i ${imageFilePath} -i ${inputFile?.uri} -acodec copy -r 1 -pix_fmt yuv420p -preset ultrafast -vf scale=-1:720 -tune stillimage -shortest`}
 			/>
 		</View>
 	);

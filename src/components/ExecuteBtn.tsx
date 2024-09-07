@@ -16,7 +16,7 @@ import {
 	View,
 	useWindowDimensions,
 } from "react-native";
-import * as Progress from "react-native-progress";
+import { Bar } from "react-native-progress";
 import { Circle, G, Line, Path, Polyline, Svg } from "react-native-svg";
 import { useAVStore } from "../stores/AVStore";
 import { useFilePathStore } from "../stores/filePathStore";
@@ -29,12 +29,14 @@ interface IExecuteBtnProps {
 	outputFormat?: string;
 	disabled?: boolean;
 	btnTitle: string;
+	fileName: string;
 }
 function ExecuteBtn({
 	command,
 	outputFormat,
 	disabled = false,
 	btnTitle,
+	fileName,
 }: IExecuteBtnProps) {
 	const { width } = useWindowDimensions();
 	const [cmdStatus, setCmdStatus] = useState<"success" | "error">();
@@ -46,7 +48,7 @@ function ExecuteBtn({
 	const colors = useTheme().colors;
 	const { inputFile } = useFilePathStore();
 	const { AVDuration } = useAVStore();
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 
 	async function executeCommand() {
 		if (!inputFile) return;
@@ -80,7 +82,12 @@ function ExecuteBtn({
 		const outputFileFormat =
 			outputFormat === undefined ? getFileExt(inputFile.uri) : outputFormat;
 
-		const outputFilePath = `${FileSystem.cacheDirectory}output/${getFileName(inputFile.uri)}_${outputFileDate}.${outputFileFormat}`;
+		const outputFileName = fileName
+			? encodeURI(fileName.replace(" ", "-"))
+			: `${getFileName(inputFile.uri)}_${outputFileDate}`;
+
+		const outputFilePath = `${FileSystem.cacheDirectory}output/${outputFileName}.${outputFileFormat}`;
+
 		await FFmpegKit.executeAsync(
 			`-y ${command} ${outputFilePath}`,
 			async (session) => {
@@ -100,7 +107,7 @@ function ExecuteBtn({
 					);
 				}
 			},
-			(log) => {
+			async (log) => {
 				const commandProgress = extractProgress(
 					log.getMessage().toString(),
 					AVDuration,
@@ -108,16 +115,23 @@ function ExecuteBtn({
 				if (commandProgress !== undefined) {
 					setProgress(commandProgress);
 				}
-
+				console.log(log.getMessage());
 				const inputErrRegex = /No such file or directory/;
 				const somethingWentWrongRegex =
 					/Conversion failed|Unable to find a suitable output format/;
 				const streamErrRegex = /Output file does not contain any stream/;
+				const invalidImageFile = /Invalid/;
+
 				if (log.getMessage().toString().match(inputErrRegex))
 					setErrInfo(t("inputErr"));
 
 				if (log.getMessage().toString().match(somethingWentWrongRegex))
 					setErrInfo(t("somethingWentWrongErr"));
+
+				if (log.getMessage().toString().match(invalidImageFile)) {
+					setErrInfo(t("somethingWentWrongErr"));
+					await FFmpegKit.cancel();
+				}
 
 				if (log.getMessage().toString().match(streamErrRegex))
 					setErrInfo(t("streamErr"));
@@ -136,8 +150,9 @@ function ExecuteBtn({
 					styles.cmdStatusContainer,
 					{
 						borderColor: colors.border,
+						flexDirection: i18n.dir() === "rtl" ? "row-reverse" : "row",
 						display:
-							cmdStatus === "error" || cmdStatus === "success"
+							(cmdStatus === "error" && errInfo) || cmdStatus === "success"
 								? "flex"
 								: "none",
 					},
@@ -160,7 +175,7 @@ function ExecuteBtn({
 						</Pressable>
 					</>
 				)}
-				{cmdStatus === "error" && (
+				{cmdStatus === "error" && errInfo && (
 					<>
 						<TriangleAlertIcon />
 						<Text style={{ color: colors.text }}>{errInfo}</Text>
@@ -171,7 +186,7 @@ function ExecuteBtn({
 			{cmdRunning && (
 				<View style={styles.progressContainer}>
 					<Text style={{ color: colors.text }}>{Math.trunc(progress)}%</Text>
-					<Progress.Bar
+					<Bar
 						progress={progress / 100}
 						useNativeDriver
 						borderRadius={3}
@@ -308,7 +323,7 @@ const styles = StyleSheet.create({
 	executeBtnContainer: {
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 20,
+		marginTop: 10,
 		width: "100%",
 	},
 	progressContainer: {

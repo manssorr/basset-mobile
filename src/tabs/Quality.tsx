@@ -4,13 +4,19 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import ExecuteBtn from "../components/ExecuteBtn";
+import FileNameInput from "../components/FileNameInput";
 import { useFilePathStore } from "../stores/filePathStore";
 
 function Quality() {
+	const [fileName, setFileName] = useState("");
 	const [quality, setQuality] = useState("1080");
+
 	const colors = useTheme().colors;
+
 	const { t } = useTranslation();
+
 	const { inputFile } = useFilePathStore();
+
 	return (
 		<View>
 			<Text
@@ -21,7 +27,7 @@ function Quality() {
 					color: colors.text,
 				}}
 			>
-				{t("audioQualitySelect.selectLabel")}
+				{t("qualitySelect.selectLabel")}
 			</Text>
 			<View style={[styles.picker, { borderColor: colors.border }]}>
 				<Picker
@@ -38,7 +44,9 @@ function Quality() {
 					<Picker.Item value="144" label="144p" />
 				</Picker>
 			</View>
+			<FileNameInput setFileName={setFileName} />
 			<ExecuteBtn
+				fileName={fileName}
 				btnTitle={t("executeBtn.startBtn")}
 				command={`-i ${inputFile?.uri} -vf scale=-1:${quality}`}
 			/>

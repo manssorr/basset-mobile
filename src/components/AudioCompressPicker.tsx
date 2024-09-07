@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import { useFilePathStore } from "../stores/filePathStore";
 import ExecuteBtn from "./ExecuteBtn";
+import FileNameInput from "./FileNameInput";
 
 function AudioCompressPicker() {
 	const [audioCompressRate, setAudioCompressRate] = useState("");
+	const [fileName, setFileName] = useState("");
 	const { inputFile } = useFilePathStore();
 	const { t } = useTranslation();
 	const colors = useTheme().colors;
@@ -21,7 +23,7 @@ function AudioCompressPicker() {
 					color: colors.text,
 				}}
 			>
-				{t("audioQualitySelect.selectLabel")}
+				{t("qualitySelect.selectLabel")}
 			</Text>
 			<View style={[styles.picker, { borderColor: colors.border }]}>
 				<Picker
@@ -30,12 +32,14 @@ function AudioCompressPicker() {
 					selectedValue={audioCompressRate}
 					onValueChange={(itemValue) => setAudioCompressRate(itemValue)}
 				>
-					<Picker.Item value="320k" label={t("audioQualitySelect.high")} />
-					<Picker.Item value="128k" label={t("audioQualitySelect.medium")} />
-					<Picker.Item value="64k" label={t("audioQualitySelect.low")} />
+					<Picker.Item value="320k" label={t("qualitySelect.high")} />
+					<Picker.Item value="128k" label={t("qualitySelect.medium")} />
+					<Picker.Item value="64k" label={t("qualitySelect.low")} />
 				</Picker>
 			</View>
+			<FileNameInput setFileName={setFileName} />
 			<ExecuteBtn
+				fileName={fileName}
 				btnTitle={t("executeBtn.startBtn")}
 				command={`-i ${inputFile?.uri} -b:a ${audioCompressRate}`}
 			/>

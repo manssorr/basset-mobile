@@ -1,6 +1,8 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import { useShareIntentContext } from "expo-share-intent";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { G, Path, Svg } from "react-native-svg";
@@ -14,6 +16,19 @@ function FileUploadScreen() {
 	const colors = useTheme().colors;
 	const navigation = useNavigation();
 	const { setInputFile } = useFilePathStore();
+	const { hasShareIntent, shareIntent } = useShareIntentContext();
+
+	useEffect(() => {
+		if (hasShareIntent && shareIntent.files) {
+			setInputFile({
+				uri: shareIntent?.files?.[0].path,
+				mimeType: shareIntent?.files?.[0].mimeType,
+			});
+
+			// @ts-ignore
+			navigation.navigate("Home");
+		}
+	}, [hasShareIntent, setInputFile, navigation.navigate, shareIntent?.files]);
 
 	async function onFileUploadPress() {
 		//Delete Document picker cache
