@@ -6,7 +6,7 @@
 	"fileInputLabel": "File name (optional)",
 	"fileInputPlaceholder": "Enter file name...",
 	"onboard": {
-		"header": "As-salamu alaykum...\nBasset is a free open source utility, its goals are:\nSimplicity and ease [Basset means simple in Arabic :)] ✨\nSpeed ⚡️\nPrivacy 🔏",
+		"header": "As-salamu alaykum...\nBasset is a free open source utility, its goals are:\n• Simplicity and ease [Basset means simple in Arabic :)] ✨\n• Speed ⚡️\n• Privacy 🔏",
 		"features": "Basset lets you trim, convert, compress, downgrade quality of your Audio/Video file. moreover you can convert Audio files to Video files using a still Image you choose",
 		"steps": "steps: choose your Video/Audio file --> choose your wanted operation"
 	},

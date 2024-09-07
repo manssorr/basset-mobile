@@ -83,7 +83,7 @@ function ExecuteBtn({
 			outputFormat === undefined ? getFileExt(inputFile.uri) : outputFormat;
 
 		const outputFileName = fileName
-			? encodeURI(fileName.replace(" ", "-"))
+			? fileName.trim().replace(" ", "-")
 			: `${getFileName(inputFile.uri)}_${outputFileDate}`;
 
 		const outputFilePath = `${FileSystem.cacheDirectory}output/${outputFileName}.${outputFileFormat}`;
@@ -96,7 +96,7 @@ function ExecuteBtn({
 					setShareFilePath(outputFilePath);
 					setCmdRunning(false);
 					setCmdStatus("success");
-					await MediaLibrary.saveToLibraryAsync(outputFilePath);
+					await MediaLibrary.saveToLibraryAsync(encodeURI(outputFilePath));
 					await Haptics.notificationAsync();
 				} else {
 					setCmdStatus("error");

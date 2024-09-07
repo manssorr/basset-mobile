@@ -9,6 +9,8 @@ import { G, Path, Svg } from "react-native-svg";
 import Seperator from "../components/Seperator";
 import { useFilePathStore } from "../stores/filePathStore";
 
+const WHITELISTED_FOLDERS = ["WebView", "image_cache", "http-cache"];
+
 const logo = require("../assets/appIcon.png");
 
 function FileUploadScreen() {
@@ -16,30 +18,50 @@ function FileUploadScreen() {
 	const colors = useTheme().colors;
 	const navigation = useNavigation();
 	const { setInputFile } = useFilePathStore();
-	const { hasShareIntent, shareIntent } = useShareIntentContext();
+	const { hasShareIntent, shareIntent, isReady } = useShareIntentContext();
 
 	useEffect(() => {
-		if (hasShareIntent && shareIntent.files) {
-			setInputFile({
-				uri: shareIntent?.files?.[0].path,
-				mimeType: shareIntent?.files?.[0].mimeType,
-			});
+		async function getShareIntentFile() {
+			if (hasShareIntent && shareIntent.files && isReady) {
+				setInputFile({
+					uri: shareIntent.files[0].path,
+					mimeType: shareIntent?.files?.[0].mimeType,
+				});
 
-			// @ts-ignore
-			navigation.navigate("Home");
+				// @ts-ignore
+				navigation.navigate("Home");
+			}
 		}
-	}, [hasShareIntent, setInputFile, navigation.navigate, shareIntent?.files]);
+		getShareIntentFile();
+	}, [
+		hasShareIntent,
+		setInputFile,
+		navigation.navigate,
+		shareIntent?.files,
+		isReady,
+	]);
 
 	async function onFileUploadPress() {
-		//Delete Document picker cache
-		await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}DocumentPicker`, {
-			idempotent: true,
-		});
+		//Sorry for this very annoying nested ifs :)
+		if (FileSystem.cacheDirectory) {
+			const cacheDirContent = await FileSystem.readDirectoryAsync(
+				FileSystem.cacheDirectory,
+			);
 
-		//Delete ffmpeg process outputs picker cache
-		await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}output`, {
-			idempotent: true,
-		});
+			//Delete unused cache
+			if (cacheDirContent) {
+				for (const file of cacheDirContent) {
+					//Only delete files/folders beside Whitelisted ones
+					if (!WHITELISTED_FOLDERS.includes(file))
+						await FileSystem.deleteAsync(
+							`${FileSystem.cacheDirectory}${file}`,
+							{
+								idempotent: true,
+							},
+						);
+				}
+			}
+		}
 
 		//Make output directory for ffmpeg process
 		await FileSystem.makeDirectoryAsync(`${FileSystem.cacheDirectory}output`, {
